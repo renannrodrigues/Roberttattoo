@@ -96,14 +96,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .lion-icon {
-            font-size: 100px;
-            filter: drop-shadow(0 0 20px rgba(218, 165, 32, 0.5));
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Estilo para quando você adicionar a logo real */
         .logo-image {
             width: 140px;
             height: 140px;
@@ -124,7 +116,6 @@
             background-clip: text;
             text-transform: uppercase;
             animation: fadeIn 1.5s ease-out 0.3s both;
-            text-shadow: 0 0 30px rgba(218, 165, 32, 0.5);
         }
 
         @keyframes fadeIn {
@@ -259,52 +250,6 @@
             z-index: 1;
         }
 
-        .contact {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-        }
-
-        .contact h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            color: #DAA520;
-        }
-
-        .contact p {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 40px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #DAA520;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            border: 2px solid #2a2a2a;
-        }
-
-        .social-link:hover {
-            background: #DAA520;
-            color: #000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
-        }
-
         .about {
             padding: 100px 20px;
             background: #0f0f0f;
@@ -404,44 +349,16 @@
             transition: all 0.3s ease;
         }
 
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .gallery-item:hover {
             transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(218, 165, 32, 0.3);
-        }
-
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #2a2a2a;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-placeholder {
-            border-color: #DAA520;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-        }
-
-        .gallery-placeholder span {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            filter: grayscale(100%) brightness(0.7);
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-placeholder span {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.2);
-        }
-
-        .gallery-placeholder p {
-            color: #888;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
         }
 
         .process {
@@ -549,6 +466,52 @@
             line-height: 1.8;
         }
 
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #DAA520;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #DAA520;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #2a2a2a;
+        }
+
+        .social-link:hover {
+            background: #DAA520;
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
+        }
+
         footer {
             background: #0a0a0a;
             text-align: center;
@@ -594,6 +557,67 @@
 
         .dev-link:hover::after {
             width: 100%;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(218, 165, 32, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 40px;
+            color: #DAA520;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.7);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid #DAA520;
+        }
+
+        .lightbox-close:hover {
+            background: #DAA520;
+            color: #000;
+            transform: rotate(90deg);
         }
 
         @media (max-width: 768px) {
@@ -678,7 +702,7 @@
                         <p>Obras Realizadas</p>
                     </div>
                     <div class="stat">
-                        <h3>💯</h3>
+                        <h3>100%</h3>
                         <p>Dedicação Total</p>
                     </div>
                 </div>
@@ -691,40 +715,25 @@
         <p class="gallery-subtitle">Confira algumas das nossas obras</p>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>🦁</span>
-                    <p>Realismo de Leão</p>
-                </div>
+                <img src="1.jpeg" alt="Tatuagem">
             </div>
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>🌹</span>
-                    <p>Flores Delicadas</p>
-                </div>
+                <img src="22.jpeg" alt="Tatuagem">
             </div>
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>💀</span>
-                    <p>Caveira Mexicana</p>
-                </div>
+                <img src="33.jpeg" alt="Tatuagem">
             </div>
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>🐉</span>
-                    <p>Dragão Oriental</p>
-                </div>
+                <img src="2.jpeg" alt="Tatuagem">
             </div>
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>⚓</span>
-                    <p>Old School</p>
-                </div>
+                <img src="3.jpeg" alt="Tatuagem">
             </div>
             <div class="gallery-item">
-                <div class="gallery-placeholder">
-                    <span>👁️</span>
-                    <p>Olho Realista</p>
-                </div>
+                <img src="4.jpeg" alt="Tatuagem">
+            </div>
+            <div class="gallery-item">
+                <img src="5.jpeg" alt="Tatuagem">
             </div>
         </div>
     </section>
@@ -758,19 +767,13 @@
     <section class="location">
         <h2>ONDE ESTAMOS</h2>
         <div class="location-container">
-            <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d-51.5181!3d-29.1688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDEwJzA3LjciUyA1McKwMzEnMDUuMiJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
-                    width="100%" 
-                    height="400" 
-                    style="border:0; border-radius: 20px;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
+             <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d217.20205403856872!2d-51.513612158596516!3d-29.42198973459772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1768879813905!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="location-info">
                 <h3>Robert Tattoo Studio</h3>
-                <p>📍 São pedro da Serra - RS, Brasil</p>
+                <p>📍 Av. Duque de Caxias, 1635 - Centro</p>
+                <p>São Pedro da Serra - RS, 95758-000</p>
                 <p>🕐 Segunda a Sexta: 10h - 20h</p>
                 <p>🕐 Sábado: 8h - 18h</p>
                 <p>📱 WhatsApp: (51) 9818-3087</p>
@@ -782,8 +785,8 @@
         <h2>ENTRE EM CONTATO</h2>
         <p>Pronto para criar sua próxima obra de arte?</p>
         <div class="social-links">
-        <a href="https://wa.me/5551998183087?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão" target="_blank" class="social-link" title="WhatsApp">📱</a>            
-        <a href="https://www.instagram.com/robert.tattoo01/" class="social-link" title="Instagram">📷</a>
+            <a href="https://wa.me/5551998183087?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão" target="_blank" class="social-link" title="WhatsApp">📱</a>            
+            <a href="https://www.instagram.com/robert.tattoo01/" target="_blank" class="social-link" title="Instagram">📷</a>
         </div>
     </section>
 
@@ -794,5 +797,35 @@
             <p>Criado e desenvolvido por <a href="https://portfolio-renan-dev.vercel.app/" target="_blank" class="dev-link">&lt;RenanDev/&gt;</a></p>
         </div>
     </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                document.getElementById('lightbox').classList.add('active');
+                document.getElementById('lightbox-img').src = this.src;
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
