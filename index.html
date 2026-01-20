@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Tattoo - Arte na Pele</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-circle {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 40px rgba(218, 165, 32, 0.3),
+                        inset 0 -2px 10px rgba(0, 0, 0, 0.5);
+            border: 3px solid #DAA520;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(218, 165, 32, 0.1), transparent);
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .lion-icon {
+            font-size: 100px;
+            filter: drop-shadow(0 0 20px rgba(218, 165, 32, 0.5));
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Estilo para quando você adicionar a logo real */
+        .logo-image {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(218, 165, 32, 0.5));
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 50%, #DAA520 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            animation: fadeIn 1.5s ease-out 0.3s both;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.4);
+            animation: fadeIn 1.5s ease-out 0.9s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.6);
+        }
+
+        .services {
+            padding: 100px 20px;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #DAA520, transparent);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #DAA520;
+            letter-spacing: 4px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #DAA520;
+            box-shadow: 0 20px 40px rgba(218, 165, 32, 0.2);
+        }
+
+        .service-card h3 {
+            color: #DAA520;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: #aaa;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #DAA520;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #DAA520;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #2a2a2a;
+        }
+
+        .social-link:hover {
+            background: #DAA520;
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .about {
+            padding: 100px 20px;
+            background: #0f0f0f;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #DAA520;
+            letter-spacing: 4px;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #aaa;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-10px);
+            border-color: #DAA520;
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.2);
+        }
+
+        .stat h3 {
+            font-size: 3rem;
+            color: #DAA520;
+            margin-bottom: 10px;
+        }
+
+        .stat p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .gallery {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #DAA520;
+            letter-spacing: 4px;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(218, 165, 32, 0.3);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-placeholder {
+            border-color: #DAA520;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+        }
+
+        .gallery-placeholder span {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            filter: grayscale(100%) brightness(0.7);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-placeholder span {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.2);
+        }
+
+        .gallery-placeholder p {
+            color: #888;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .process {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .process h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #DAA520;
+            letter-spacing: 4px;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            border-color: #DAA520;
+            box-shadow: 0 20px 40px rgba(218, 165, 32, 0.2);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #DAA520;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .step h3 {
+            font-size: 1.8rem;
+            color: #DAA520;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .location {
+            padding: 100px 20px;
+            background: #0f0f0f;
+        }
+
+        .location h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #DAA520;
+            letter-spacing: 4px;
+        }
+
+        .location-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid #2a2a2a;
+        }
+
+        .location-info {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .location-info h3 {
+            font-size: 2rem;
+            color: #DAA520;
+            margin-bottom: 30px;
+        }
+
+        .location-info p {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #0a0a0a;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #2a2a2a;
+            color: #666;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        .developer-credit {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .dev-link {
+            color: #DAA520;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dev-link:hover {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+
+        .dev-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #DAA520, #FFD700);
+            transition: width 0.3s ease;
+        }
+
+        .dev-link:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .services h2, .contact h2 {
+                font-size: 2rem;
+            }
+
+            .location-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="logo-container">
+            <div class="logo-circle">
+                <img src="logo.png" alt="Robert Tattoo" class="logo-image">
+            </div>
+            <h1>ROBERT TATTOO</h1>
+            <p class="tagline">Arte que vive na sua pele</p>
+            <a href="https://wa.me/5551998183087?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão" class="cta-button">AGENDAR SESSÃO</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <h2>NOSSOS SERVIÇOS</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3>Tatuagens Personalizadas</h3>
+                <p>Criamos designs únicos e exclusivos que contam sua história. Cada traço é pensado para refletir sua personalidade.</p>
+            </div>
+            <div class="service-card">
+                <h3>Realismo</h3>
+                <p>Técnica refinada para criar tatuagens hiper-realistas com profundidade e detalhamento impressionantes.</p>
+            </div>
+            <div class="service-card">
+                <h3>Blackwork</h3>
+                <p>Arte em preto sólido com contraste intenso, perfeito para designs geométricos e ilustrações impactantes.</p>
+            </div>
+            <div class="service-card">
+                <h3>Cover Up</h3>
+                <p>Transformamos tatuagens antigas em novas obras de arte. Renovação com criatividade e técnica.</p>
+            </div>
+            <div class="service-card">
+                <h3>Fine Line</h3>
+                <p>Linhas delicadas e precisas para designs minimalistas e sofisticados que resistem ao tempo.</p>
+            </div>
+            <div class="service-card">
+                <h3>Old School</h3>
+                <p>O clássico da tatuagem com cores vibrantes e contornos marcantes. Tradição que nunca sai de moda.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>SOBRE ROBERT</h2>
+                <p class="about-text">
+                    Minha jornada na arte da tatuagem está apenas começando, mas cada traço que faço é feito com paixão e dedicação total. Acredito que cada tatuagem é uma história única esperando para ser contada, e me comprometo a dar vida às suas ideias com técnica e cuidado.
+                </p>
+                <p class="about-text">
+                    Estou constantemente aprimorando minhas habilidades e explorando diferentes estilos para oferecer o melhor resultado. No Robert Tattoo, cada cliente recebe atenção individual e um trabalho feito com respeito à arte que vai marcar sua pele para sempre.
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>2024</h3>
+                        <p>Início da Jornada</p>
+                    </div>
+                    <div class="stat">
+                        <h3>15+</h3>
+                        <p>Obras Realizadas</p>
+                    </div>
+                    <div class="stat">
+                        <h3>💯</h3>
+                        <p>Dedicação Total</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2>PORTFÓLIO</h2>
+        <p class="gallery-subtitle">Confira algumas das nossas obras</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>🦁</span>
+                    <p>Realismo de Leão</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>🌹</span>
+                    <p>Flores Delicadas</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>💀</span>
+                    <p>Caveira Mexicana</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>🐉</span>
+                    <p>Dragão Oriental</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>⚓</span>
+                    <p>Old School</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">
+                    <span>👁️</span>
+                    <p>Olho Realista</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <h2>COMO FUNCIONA</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Consulta</h3>
+                <p>Agende uma conversa para discutir sua ideia. Vamos entender sua visão e criar o design perfeito.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Design</h3>
+                <p>Desenvolvo um desenho exclusivo baseado nas suas preferências. Ajustes até você ficar 100% satisfeito.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Sessão</h3>
+                <p>No dia marcado, transformamos o design em realidade com técnica profissional e ambiente esterilizado.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">04</div>
+                <h3>Cuidados</h3>
+                <p>Orientação completa sobre como cuidar da sua nova tatuagem para garantir a melhor cicatrização.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="location">
+        <h2>ONDE ESTAMOS</h2>
+        <div class="location-container">
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d-51.5181!3d-29.1688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDEwJzA3LjciUyA1McKwMzEnMDUuMiJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                    width="100%" 
+                    height="400" 
+                    style="border:0; border-radius: 20px;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div class="location-info">
+                <h3>Robert Tattoo Studio</h3>
+                <p>📍 São pedro da Serra - RS, Brasil</p>
+                <p>🕐 Segunda a Sexta: 10h - 20h</p>
+                <p>🕐 Sábado: 8h - 18h</p>
+                <p>📱 WhatsApp: (51) 9818-3087</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>ENTRE EM CONTATO</h2>
+        <p>Pronto para criar sua próxima obra de arte?</p>
+        <div class="social-links">
+        <a href="https://wa.me/5551998183087?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão" target="_blank" class="social-link" title="WhatsApp">📱</a>            
+        <a href="https://www.instagram.com/robert.tattoo01/" class="social-link" title="Instagram">📷</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Robert Tattoo. Todos os direitos reservados.</p>
+        <p>Arte que vive na sua pele 🦁</p>
+        <div class="developer-credit">
+            <p>Criado e desenvolvido por <a href="https://seu-portfolio.com" target="_blank" class="dev-link">&lt;RenanDev/&gt;</a></p>
+        </div>
+    </footer>
+</body>
+</html>
