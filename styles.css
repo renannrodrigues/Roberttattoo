@@ -1,0 +1,381 @@
+/* Reset e Configurações Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Texto Dourado com Gradiente */
+.golden-text {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Partículas Douradas */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #fbbf24 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    animation: floatUp 8s ease-in infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(var(--drift, 0));
+        opacity: 0;
+    }
+}
+
+/* Animações de Entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Cards de Serviço */
+.service-card {
+    animation: fadeInUp 0.6s ease-out;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+}
+
+.service-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.1), transparent);
+    transform: rotate(45deg) translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.service-card:hover::after {
+    transform: rotate(45deg) translateX(100%);
+}
+
+/* Timeline Animations */
+.timeline-item {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.timeline-item.active {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.timeline-item:nth-child(1).active {
+    animation-delay: 0.1s;
+}
+
+.timeline-item:nth-child(2).active {
+    animation-delay: 0.2s;
+}
+
+.timeline-item:nth-child(3).active {
+    animation-delay: 0.3s;
+}
+
+.timeline-item:nth-child(4).active {
+    animation-delay: 0.4s;
+}
+
+/* Itens do Portfólio */
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 1;
+}
+
+.portfolio-item:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* Efeito de Brilho nos Botões */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Scrollbar Customizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #fbbf24, #d97706);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #f59e0b, #b45309);
+}
+
+/* Animação de Pulsação */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* Responsividade - Mobile */
+@media (max-width: 768px) {
+    .golden-text {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    /* Timeline Mobile */
+    .timeline-item {
+        flex-direction: column !important;
+    }
+    
+    .timeline-item > div {
+        width: 100% !important;
+        padding: 0 !important;
+        text-align: left !important;
+    }
+    
+    .timeline-item .text-right {
+        text-align: left !important;
+    }
+    
+    .timeline-item .justify-end {
+        justify-content: flex-start !important;
+    }
+}
+
+/* Efeito de Loading para Imagens */
+img {
+    transition: opacity 0.3s ease;
+}
+
+img:not([src]) {
+    opacity: 0;
+}
+
+/* Animação de Número Crescente */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sombras Personalizadas */
+.shadow-golden {
+    box-shadow: 0 10px 40px rgba(251, 191, 36, 0.2);
+}
+
+.shadow-golden-lg {
+    box-shadow: 0 20px 60px rgba(251, 191, 36, 0.3);
+}
+
+/* Estados de Foco para Acessibilidade */
+button:focus,
+a:focus {
+    outline: 2px solid #fbbf24;
+    outline-offset: 2px;
+}
+
+/* Estados de Hover para Links */
+a {
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    filter: brightness(1.2);
+}
+
+/* Animação de Entrada para Seções */
+section {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Efeito de Neon Sutil */
+.neon-glow {
+    text-shadow: 
+        0 0 10px rgba(251, 191, 36, 0.5),
+        0 0 20px rgba(251, 191, 36, 0.3),
+        0 0 30px rgba(251, 191, 36, 0.1);
+}
+
+/* Grid com Gap Responsivo */
+@media (max-width: 640px) {
+    .grid {
+        gap: 1rem;
+    }
+}
+
+/* Otimização de Performance */
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-opacity {
+    will-change: opacity;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* Animação de Glow nas Partículas */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24;
+    }
+    50% {
+        box-shadow: 0 0 10px #fbbf24, 0 0 20px #fbbf24, 0 0 30px #f59e0b;
+    }
+}
+
+.particle {
+    animation: floatUp 8s ease-in infinite, glow 2s ease-in-out infinite;
+}
+
+/* Backdrop Blur para Nav */
+nav {
+    transition: all 0.3s ease;
+}
+
+/* Timeline Dot Pulse */
+.timeline-item .absolute {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.timeline-item.active .absolute {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+}
+
+/* Hover effect nos produtos */
+.bg-white {
+    transition: all 0.3s ease;
+}
+
+.bg-white:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
