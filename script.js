@@ -1,16 +1,10 @@
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
-    // Criar partículas douradas
-    createParticles();
-    
     // Smooth Scroll
     initSmoothScroll();
     
     // Animação de Números
     initCounterAnimation();
-    
-    // Lazy Loading para Imagens
-    initLazyLoading();
     
     // Animações de Scroll
     initScrollAnimations();
@@ -23,23 +17,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Formulário de Contato
     initContactForm();
+    
+    // Criar partículas depois de tudo carregar (não bloqueia)
+    setTimeout(createParticles, 1000);
 });
 
 // ===== PARTÍCULAS DOURADAS =====
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
-    const particleCount = 50;
+    if (!particlesContainer) return;
+    
+    const particleCount = 30; // Reduzido de 50 para 30
     
     for (let i = 0; i < particleCount; i++) {
         setTimeout(() => {
             createParticle(particlesContainer);
-        }, i * 200);
+        }, i * 300); // Aumentado o intervalo
     }
     
-    // Criar partículas continuamente
+    // Criar partículas continuamente com menos frequência
     setInterval(() => {
         createParticle(particlesContainer);
-    }, 400);
+    }, 800); // Aumentado de 400 para 800ms
 }
 
 function createParticle(container) {
@@ -140,43 +139,23 @@ function animateCounter(element) {
     }, duration / steps);
 }
 
-// ===== LAZY LOADING DE IMAGENS =====
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.style.opacity = '1';
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => {
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.5s ease';
-        imageObserver.observe(img);
-    });
-}
-
 // ===== SCROLL ANIMATIONS =====
+const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            scrollObserver.unobserve(entry.target); // Para de observar após animar
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+});
+
 function initScrollAnimations() {
     const elements = document.querySelectorAll('.service-card, .portfolio-item');
     
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
     elements.forEach((element, index) => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
@@ -225,16 +204,11 @@ function openModal(imgSrc, imgAlt) {
     modal.onclick = () => closeModal(modal);
     
     const container = document.createElement('div');
-    container.className = 'relative max-w-5xl max-h-[90vh]';
+    container.className = 'relative w-full max-w-5xl flex flex-col items-center justify-center';
     container.onclick = (e) => e.stopPropagation();
     
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = imgAlt;
-    img.className = 'max-w-full max-h-[90vh] object-contain rounded-lg';
-    
     const closeBtn = document.createElement('button');
-    closeBtn.className = 'absolute top-4 right-4 w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors';
+    closeBtn.className = 'mb-4 w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors z-10 flex-shrink-0';
     closeBtn.innerHTML = `
         <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -242,10 +216,18 @@ function openModal(imgSrc, imgAlt) {
     `;
     closeBtn.onclick = () => closeModal(modal);
     
-    container.appendChild(img);
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = imgAlt;
+    img.className = 'w-full h-auto max-h-[75vh] object-contain rounded-lg';
+    
     container.appendChild(closeBtn);
+    container.appendChild(img);
     modal.appendChild(container);
     document.body.appendChild(modal);
+    
+    // Prevenir scroll do body
+    document.body.style.overflow = 'hidden';
     
     // Animação de entrada
     setTimeout(() => {
@@ -267,6 +249,7 @@ function openModal(imgSrc, imgAlt) {
 
 function closeModal(modal) {
     modal.style.opacity = '0';
+    document.body.style.overflow = 'auto';
     setTimeout(() => modal.remove(), 300);
 }
 
@@ -287,7 +270,7 @@ function initContactForm() {
 
 function handleSchedule() {
     const message = encodeURIComponent('Olá! Gostaria de agendar uma consulta para uma tatuagem.');
-    const phone = '5551998183087'; // Substitua pelo número real
+    const phone = '5551998183087';
     const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
     
     showNotification('Redirecionando para WhatsApp...', 'success');

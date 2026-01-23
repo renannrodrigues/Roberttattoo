@@ -233,15 +233,29 @@ button:hover::before {
     h2 {
         font-size: 2rem;
     }
+}
+    
+/* Timeline Mobile */
+@media (max-width: 768px) {
+    .golden-text {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
     
     /* Timeline Mobile */
     .timeline-item {
         flex-direction: column !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     
     .timeline-item > div {
         width: 100% !important;
         padding: 0 !important;
+        padding-left: 1rem !important;
         text-align: left !important;
     }
     
@@ -251,6 +265,17 @@ button:hover::before {
     
     .timeline-item .justify-end {
         justify-content: flex-start !important;
+    }
+    
+    /* Esconder linha vertical no mobile */
+    #process .absolute.left-1\/2 {
+        display: none;
+    }
+    
+    /* Ajustar número grande no mobile */
+    .timeline-item .text-8xl {
+        font-size: 3rem !important;
+        opacity: 0.2 !important;
     }
 }
 
