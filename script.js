@@ -27,21 +27,20 @@ function createParticles() {
     const particlesContainer = document.getElementById('particles');
     if (!particlesContainer) return;
     
-    const particleCount = 30; // Reduzido de 50 para 30
+    const particleCount = 30;
     
+    // Criar partículas INICIAIS já no meio da animação
     for (let i = 0; i < particleCount; i++) {
-        setTimeout(() => {
-            createParticle(particlesContainer);
-        }, i * 300); // Aumentado o intervalo
+        createParticle(particlesContainer, true); // true = começa no meio da animação
     }
     
-    // Criar partículas continuamente com menos frequência
+    // Depois continua criando novas partículas normalmente
     setInterval(() => {
-        createParticle(particlesContainer);
-    }, 800); // Aumentado de 400 para 800ms
+        createParticle(particlesContainer, false); // false = animação normal
+    }, 800);
 }
 
-function createParticle(container) {
+function createParticle(container, startMidAnimation = false) {
     const particle = document.createElement('div');
     particle.className = 'particle';
     
@@ -59,9 +58,15 @@ function createParticle(container) {
     particle.style.width = size + 'px';
     particle.style.height = size + 'px';
     
-    // Delay aleatório
-    const delay = Math.random() * 2;
-    particle.style.animationDelay = delay + 's';
+    // Se for partícula inicial, começa com delay negativo (já no meio da animação)
+    if (startMidAnimation) {
+        const negativeDelay = -(Math.random() * 8); // Entre -8s e 0s
+        particle.style.animationDelay = negativeDelay + 's';
+    } else {
+        // Delay aleatório normal
+        const delay = Math.random() * 2;
+        particle.style.animationDelay = delay + 's';
+    }
     
     container.appendChild(particle);
     
