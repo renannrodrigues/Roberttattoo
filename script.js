@@ -339,6 +339,14 @@ function debounce(func, wait) {
     };
 }
 
+document.querySelectorAll('button').forEach(btn => {
+  if (btn.innerText.toUpperCase().includes('AGENDAR')) {
+    btn.addEventListener('click', () => {
+      window.open('https://wa.me/5551998183087', '_blank');
+    });
+  }
+});
+
 // Throttle para limitar chamadas de função
 function throttle(func, limit) {
     let inThrottle;
