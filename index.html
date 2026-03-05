@@ -194,67 +194,53 @@
                 <div class="w-24 h-1 bg-gradient-to-r from-yellow-600 to-yellow-400 mx-auto mb-4"></div>
                 <p class="text-gray-400 text-lg">Confira a beleza das minhas artes</p>
             </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-12">
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="11.jpeg" alt="Portfolio 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <!-- CAROUSEL -->
+            <div class="relative mt-12">
+                <!-- Track wrapper -->
+                <div class="overflow-hidden rounded-xl">
+                    <div id="portfolio-track" class="flex transition-transform duration-500 ease-in-out"></div>
                 </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="1.jpeg" alt="Portfolio 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="33.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="2.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="3.jpeg" alt="Portfolio 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="4.jpeg" alt="Portfolio 4" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="5.jpeg" alt="Portfolio 5" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="6.jpeg" alt="Portfolio 6" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer col-span-2 md:col-span-1">
-                    <img src="7.jpeg" alt="Portfolio 7" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="8.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="12.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="13.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="15.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="16.jpeg" alt="Portfolio 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+
+                <!-- Prev Button -->
+                <button id="portfolio-prev" aria-label="Anterior"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/60 hover:bg-yellow-500 border border-yellow-600/40 hover:border-yellow-500 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+
+                <!-- Next Button -->
+                <button id="portfolio-next" aria-label="Próximo"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/60 hover:bg-yellow-500 border border-yellow-600/40 hover:border-yellow-500 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+
+                <!-- Dots -->
+                <div id="portfolio-dots" class="flex justify-center gap-2 mt-6"></div>
             </div>
         </div>
     </section>
+
+    <!-- LIGHTBOX -->
+    <div id="portfolio-lightbox" class="hidden fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-5xl flex flex-col items-center">
+            <!-- Counter -->
+            <div id="lb-counter" class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-10 bg-black/60 text-white text-sm px-4 py-1 rounded-full backdrop-blur-sm"></div>
+            <!-- Image -->
+            <img id="lb-img" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl transition-opacity duration-300">
+            <!-- Close -->
+            <button id="lb-close" class="absolute -top-12 right-0 w-10 h-10 bg-white/10 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-colors duration-200">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 18 18"><path d="M1 1l16 16M17 1L1 17" stroke-linecap="round"/></svg>
+            </button>
+            <!-- Prev -->
+            <button id="lb-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-colors duration-200">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <!-- Next -->
+            <button id="lb-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-colors duration-200">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </div>
 
     <!-- Process Section with Timeline -->
     <section id="process" class="py-20 px-4 bg-black relative overflow-hidden">

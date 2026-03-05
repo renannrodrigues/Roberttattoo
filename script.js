@@ -189,73 +189,172 @@ function initTimelineAnimations() {
     });
 }
 
-// ===== MODAL DE PORTFÓLIO =====
+// ===== CAROUSEL DE PORTFÓLIO + LIGHTBOX =====
+const portfolioPhotos = [
+    { src: '11.jpeg', alt: 'Portfólio 1' },
+    { src: '1.jpeg',  alt: 'Portfólio 2' },
+    { src: '33.jpeg', alt: 'Portfólio 3' },
+    { src: '13.jpeg', alt: 'Portfólio 4' },
+    { src: '2.jpeg',  alt: 'Portfólio 5' },
+    { src: '3.jpeg',  alt: 'Portfólio 6' },
+    { src: '4.jpeg',  alt: 'Portfólio 7' },
+    { src: '5.jpeg',  alt: 'Portfólio 8' },
+    { src: '6.jpeg',  alt: 'Portfólio 9' },
+    { src: '7.jpeg',  alt: 'Portfólio 10' },
+    { src: '8.jpeg',  alt: 'Portfólio 11' },
+    { src: '12.jpeg', alt: 'Portfólio 12' },
+    { src: '15.jpeg', alt: 'Portfólio 13' },
+    { src: '16.jpeg', alt: 'Portfólio 14' },
+    { src: '17.jpeg', alt: 'Portfólio 15' },
+];
+
+function getPerPage() {
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 640) return 2;
+    return 1;
+}
+
+let carouselPage = 0;
+let carouselAutoPlay = null;
+
 function initPortfolioModal() {
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    
-    portfolioItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const img = this.querySelector('img');
-            if (img) {
-                openModal(img.src, img.alt);
+    const track    = document.getElementById('portfolio-track');
+    const dotsEl   = document.getElementById('portfolio-dots');
+    const prevBtn  = document.getElementById('portfolio-prev');
+    const nextBtn  = document.getElementById('portfolio-next');
+
+    if (!track) return;
+
+    let perPage = getPerPage();
+    let totalPages = Math.ceil(portfolioPhotos.length / perPage);
+
+    function buildSlides() {
+        perPage = getPerPage();
+        totalPages = Math.ceil(portfolioPhotos.length / perPage);
+        track.innerHTML = '';
+        dotsEl.innerHTML = '';
+        carouselPage = 0;
+
+        for (let p = 0; p < totalPages; p++) {
+            const slide = document.createElement('div');
+            slide.className = 'min-w-full grid gap-4 p-1';
+            slide.style.gridTemplateColumns = `repeat(${perPage}, minmax(0, 1fr))`;
+
+            const start = p * perPage;
+            const end = Math.min(start + perPage, portfolioPhotos.length);
+
+            for (let i = start; i < end; i++) {
+                const photo = portfolioPhotos[i];
+                const wrap = document.createElement('div');
+                wrap.className = 'portfolio-item group relative overflow-hidden rounded-lg aspect-square cursor-pointer';
+                wrap.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.alt}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                        <span class="text-white text-sm tracking-widest uppercase font-semibold">Ver</span>
+                    </div>
+                `;
+                wrap.addEventListener('click', () => lbOpen(i));
+                slide.appendChild(wrap);
             }
-        });
-    });
-}
+            track.appendChild(slide);
 
-function openModal(imgSrc, imgAlt) {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4 cursor-pointer';
-    modal.onclick = () => closeModal(modal);
-    
-    const container = document.createElement('div');
-    container.className = 'relative w-full max-w-5xl flex flex-col items-center justify-center';
-    container.onclick = (e) => e.stopPropagation();
-    
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'mb-4 w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors z-10 flex-shrink-0';
-    closeBtn.innerHTML = `
-        <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    `;
-    closeBtn.onclick = () => closeModal(modal);
-    
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = imgAlt;
-    img.className = 'w-full h-auto max-h-[75vh] object-contain rounded-lg';
-    
-    container.appendChild(closeBtn);
-    container.appendChild(img);
-    modal.appendChild(container);
-    document.body.appendChild(modal);
-    
-    // Prevenir scroll do body
-    document.body.style.overflow = 'hidden';
-    
-    // Animação de entrada
-    setTimeout(() => {
-        modal.style.opacity = '1';
-    }, 10);
-    
-    modal.style.opacity = '0';
-    modal.style.transition = 'opacity 0.3s ease';
-    
-    // Fechar com ESC
-    const escHandler = (e) => {
-        if (e.key === 'Escape') {
-            closeModal(modal);
-            document.removeEventListener('keydown', escHandler);
+            // Dot
+            const dot = document.createElement('button');
+            dot.className = 'w-3 h-3 rounded-full transition-all duration-300 ' + (p === 0 ? 'bg-yellow-500 scale-125' : 'bg-zinc-600 hover:bg-zinc-400');
+            dot.setAttribute('aria-label', 'Página ' + (p + 1));
+            dot.addEventListener('click', () => goToPage(p));
+            dotsEl.appendChild(dot);
         }
-    };
-    document.addEventListener('keydown', escHandler);
-}
 
-function closeModal(modal) {
-    modal.style.opacity = '0';
-    document.body.style.overflow = 'auto';
-    setTimeout(() => modal.remove(), 300);
+        // Re-init scroll animations on new items
+        initScrollAnimations();
+    }
+
+    function goToPage(page) {
+        carouselPage = page;
+        track.style.transform = `translateX(-${page * 100}%)`;
+        Array.from(dotsEl.children).forEach((dot, i) => {
+            dot.className = 'w-3 h-3 rounded-full transition-all duration-300 ' +
+                (i === page ? 'bg-yellow-500 scale-125' : 'bg-zinc-600 hover:bg-zinc-400');
+        });
+    }
+
+    function next() { goToPage(carouselPage < totalPages - 1 ? carouselPage + 1 : 0); }
+    function prev() { goToPage(carouselPage > 0 ? carouselPage - 1 : totalPages - 1); }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    carouselAutoPlay = setInterval(next, 5000);
+
+    // Touch/swipe
+    let touchStartX = 0;
+    track.parentElement.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    });
+
+    buildSlides();
+
+    // Rebuild on resize
+    window.addEventListener('resize', debounce(() => {
+        if (getPerPage() !== perPage) buildSlides();
+    }, 200));
+
+    // ─── LIGHTBOX ───────────────────────────────────────
+    let lbIndex = 0;
+    const lb      = document.getElementById('portfolio-lightbox');
+    const lbImg   = document.getElementById('lb-img');
+    const lbCount = document.getElementById('lb-counter');
+
+    function lbRender() {
+        const photo = portfolioPhotos[lbIndex];
+        lbImg.style.opacity = '0';
+        lbImg.src = photo.src;
+        lbImg.alt = photo.alt;
+        lbImg.onload = () => { lbImg.style.opacity = '1'; };
+        lbCount.textContent = `${lbIndex + 1} / ${portfolioPhotos.length}`;
+    }
+
+    function lbOpen(index) {
+        lbIndex = index;
+        lb.classList.remove('hidden');
+        lb.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        clearInterval(carouselAutoPlay);
+        lbRender();
+    }
+
+    function lbClose() {
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        document.body.style.overflow = '';
+        carouselAutoPlay = setInterval(next, 5000);
+    }
+
+    function lbNext() { lbIndex = lbIndex < portfolioPhotos.length - 1 ? lbIndex + 1 : 0; lbRender(); }
+    function lbPrev() { lbIndex = lbIndex > 0 ? lbIndex - 1 : portfolioPhotos.length - 1; lbRender(); }
+
+    document.getElementById('lb-close').addEventListener('click', lbClose);
+    document.getElementById('lb-next').addEventListener('click', lbNext);
+    document.getElementById('lb-prev').addEventListener('click', lbPrev);
+    lb.addEventListener('click', (e) => { if (e.target === lb) lbClose(); });
+
+    // Touch swipe no lightbox
+    let lbTouchX = 0;
+    lb.addEventListener('touchstart', (e) => { lbTouchX = e.changedTouches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+        const diff = lbTouchX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? lbNext() : lbPrev();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (lb.classList.contains('hidden')) return;
+        if (e.key === 'ArrowRight') lbNext();
+        if (e.key === 'ArrowLeft') lbPrev();
+        if (e.key === 'Escape') lbClose();
+    });
 }
 
 // ===== FORMULÁRIO DE CONTATO =====
